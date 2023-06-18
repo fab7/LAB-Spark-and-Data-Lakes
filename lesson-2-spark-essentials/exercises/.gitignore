@@ -1,1 +1,5 @@
 sparkify_log_small.csv
+
+
+# Virtual Environment
+.venv/
