@@ -1,20 +1,20 @@
-# README Template
+# README
 
-Below is a template provided for use when building your README file for students.
+This directory contains the STEDI project deliverables.
 
-# Project Title
+## Project Overview
 
-Project description goes here.
+The STEDI Human Balance Analytics project builds a data lakehouse solution for extracting and curating the data produced by the STEDI Step Trainer sensors and its associated mobile app. The lakehouse is built on AWS and the resulting data are to be used by Data Scientists to  train a learning model.
 
-## Getting Started
+## S3 Landing Zone
 
-Instructions for how to get a copy of the project running on your local machine.
+The raw data coming from 3 various sources are stored on AWS S3 in the following 3 directories:
+- s3://fab-se4s-bucket/stedi/accelerometer/landing
+- s3://fab-se4s-bucket/stedi/customer/landing
+- s3://fab-se4s-bucket/stedi/step_trainer/landing
+    
 
-### Dependencies
 
-```
-Examples here
-```
 
 ### Installation
 
@@ -26,28 +26,9 @@ List out the steps
 Give an example here
 ```
 
-## Testing
-
-Explain the steps needed to run any automated tests
-
-### Break Down Tests
-
-Explain what each test does and why
-
-```
-Examples here
-```
-## Project Instructions
-
-This section should contain all the student deliverables for this project.
 
 ## Built With
 
 * [Item1](www.item1.com) - Description of item
 * [Item2](www.item2.com) - Description of item
 * [Item3](www.item3.com) - Description of item
-
-Include all items used to build project.
-
-## License
-[License](../LICENSE.md)
