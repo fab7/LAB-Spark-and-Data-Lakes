@@ -19,31 +19,26 @@ CustomerTrusted_node1687279486586 = glueContext.create_dynamic_frame.from_catalo
     transformation_ctx="CustomerTrusted_node1687279486586",
 )
 
-# Script generated for node StepTrainerLanding
-StepTrainerLanding_node1687424545672 = glueContext.create_dynamic_frame.from_options(
-    format_options={"multiline": False},
-    connection_type="s3",
-    format="json",
-    connection_options={
-        "paths": ["s3://fab-se4s-bucket/stedi/step_trainer/landing/"],
-        "recurse": True,
-    },
-    transformation_ctx="StepTrainerLanding_node1687424545672",
+# Script generated for node AccelerometerTrusted
+AccelerometerTrusted_node1687424545672 = glueContext.create_dynamic_frame.from_catalog(
+    database="stedi",
+    table_name="accelerometer_trusted",
+    transformation_ctx="AccelerometerTrusted_node1687424545672",
 )
 
-# Script generated for node Join-On-SerialNumbers
-JoinOnSerialNumbers_node1687424380256 = Join.apply(
+# Script generated for node Join-On-Email-And-User
+JoinOnEmailAndUser_node1687424380256 = Join.apply(
     frame1=CustomerTrusted_node1687279486586,
-    frame2=StepTrainerLanding_node1687424545672,
-    keys1=["serialnumber"],
-    keys2=["serialNumber"],
-    transformation_ctx="JoinOnSerialNumbers_node1687424380256",
+    frame2=AccelerometerTrusted_node1687424545672,
+    keys1=["email"],
+    keys2=["user"],
+    transformation_ctx="JoinOnEmailAndUser_node1687424380256",
 )
 
 # Script generated for node Drop-SensorRecords
 DropSensorRecords_node1687424791995 = DropFields.apply(
-    frame=JoinOnSerialNumbers_node1687424380256,
-    paths=["distanceFromObject", "sensorReadingTime", "serialNumber"],
+    frame=JoinOnEmailAndUser_node1687424380256,
+    paths=[],
     transformation_ctx="DropSensorRecords_node1687424791995",
 )
 
