@@ -16,7 +16,14 @@ The raw data coming from 3 various sources are stored on AWS S3 in the following
 ## Python Scripts using Spark
 
 ### Customer Landind To Trusted
-The `./stedi/customer_landing_to_trusted.py` script is a Glue job that applies a privacy policy on cutomer's data by filtering out the customers that did not give their approval to use their data for research purposes (i.e. the field `shareWithResearchAsOfDate` is set and is not zero).
+Sanitizes the customer data from the Website (Landing Zone) to create **customer_trusted** data that only stores the customer records:
+- who agreed to share their data for **research purposes** and,
+- who have **accelerometer data** available.
+
+The corresponding Glue job is `./stedi/customer_landing_to_trusted.py`. It joins the customer and accelerometer landing tables on emails, and it applies a privacy policy on customer's data by filtering out the customers that did not give their approval to use their data for research purposes (i.e. the field `shareWithResearchAsOfDate` is set and is not zero).
+
+**[INFO]** The join with the accelerometer data is doing much more than what is initiallyty asked in the question. However, it avoids ending up with empty tables at the end of the project   
+
 
 ![Alt text](./img/CustomerLandingToTrusted.png "Fig.1")<p align="center">*Fig.1 - Customer Landing To Trusted*</p>
 
@@ -29,9 +36,12 @@ The `./stedi/accelerometer_landing_to_trusted_zone.py` script sanitizes the acce
 
 ###  Customer Curated Zone
 The ` stedi/customer_trusted_to_curated.py` script 
-sanitizes the trusted customer data to only include customers who have accelerometer data and have agreed to share their data for research. The Glue job consists of the following transforms:
-- a **JOIN** of trusted customers with step-trainer records based on `serialNumber` ==  `serialNumber`
-- a **DROP** of the unused record fields ('timeStamp', 'sensorReadingTime', distanceFromObject').
+sanitizes the trusted customer data to only include customers who have accelerometer data and have agreed to share their data for research.
+The Glue job consists of the following transforms:
+- a **JOIN** of trusted customers with accelerator records based on `email` ==  `user`
+- a **DROP** of the unused record fields (i.e. the accelerometer data).
+
+**Note:** The Glue job that is created here is redundant with the way I create the `customer_trusted` table at the beginning of the project. This job was re-created here to align with the requested deliverables.   
 
 ![Alt text](./img/CustomerCurated.png "Fig.3")<p align="center">*Fig.3 - Customer Curated Zone*</p>
 
